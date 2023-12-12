@@ -1,5 +1,3 @@
--- Create the database if it does not exist
-CREATE DATABASE sample_db;
 
 -- Connect to the database
 \c sample_db;
