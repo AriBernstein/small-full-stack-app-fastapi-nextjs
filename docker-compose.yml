@@ -1,0 +1,18 @@
+version: 0.0.1
+services:
+  backend:
+    build: backend
+    ports:
+      - 8000:8000
+    volumes:
+      - ./backend:/usr/src/app
+
+  frontend:
+    build: frontend
+    ports:
+      - 3000:3000
+    volumes:
+      - ./frontend:/usr/src/app
+
+volumes:
+  db_volume:

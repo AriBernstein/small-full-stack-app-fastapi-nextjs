@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+gunicorn
+psycopg2
+sqlalchemy
+alembic
+databases[postgresql]
+# python-dotenv
+# py-postgresql

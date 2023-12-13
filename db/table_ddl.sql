@@ -1,12 +1,20 @@
-
--- Connect to the database
 \c sample_db;
 
--- Create the table if it does not exist
 CREATE TABLE IF NOT EXISTS biological_sample_data (
-    Sample_ID SERIAL PRIMARY KEY,
-    Sample_Name VARCHAR(255) NOT NULL,
-    Date_Collected DATE NOT NULL,
-    Experiment_Type VARCHAR(255) NOT NULL,
-    Storage_Location VARCHAR(255) NOT NULL
+    id SERIAL PRIMARY KEY,
+    sample_id VARCHAR(255) NOT NULL,
+    sample_name VARCHAR(255) NOT NULL,
+    date_collected DATE NOT NULL,
+    experiment_type VARCHAR(255) NOT NULL,
+    storage_location_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS biological_sample_storage_locations (
+    id SERIAL PRIMARY KEY,
+    location_name VARCHAR(255) NOT NULL,
+    location_street_address VARCHAR(255) NOT NULL,
+    location_city VARCHAR(255) NOT NULL,
+    location_state VARCHAR(2),
+    location_zip VARCHAR(10),
+    location_country_code VARCHAR(3)
 );
