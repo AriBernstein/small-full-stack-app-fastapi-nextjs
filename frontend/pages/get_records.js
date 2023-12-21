@@ -8,6 +8,7 @@ export default function ViewData() {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [sampleId, setSampleId] = useState('');
+    const [sampleIdForLocation, setSampleIdForLocation] = useState('');
 
     const fetchData = async (url) => {
         setSamples(null);
@@ -66,6 +67,13 @@ export default function ViewData() {
                     <input type="text" value={sampleId} onChange={(e) => setSampleId(e.target.value)} placeholder="Sample ID" />
                     <button onClick={() => fetchData(`http://localhost:8000/bio_sample/${sampleId}`)}>
                         Load by Sample ID
+                    </button>
+                </div>
+
+                <div className={styles.card}>
+                    <input type="text" value={sampleIdForLocation} onChange={(e) => setSampleIdForLocation(e.target.value)} placeholder="Sample ID for location" />
+                    <button onClick={() => fetchData(`http://localhost:8000/sample_storage/${sampleIdForLocation}`)}>
+                        Get location of sample by Sample ID
                     </button>
                 </div>
 

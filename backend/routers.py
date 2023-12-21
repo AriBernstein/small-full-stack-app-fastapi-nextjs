@@ -5,8 +5,8 @@ import datetime
 from fastapi import APIRouter, HTTPException
 import sqlalchemy
 
-from database.model import biological_sample_data
-from database.schemas import BiologicalSample
+from database.model import biological_sample_data, biological_sample_storage_locations
+from database.schemas import BiologicalSample, BiologicalSampleStorageLocation
 from database_conf import db
 
 router = APIRouter()
@@ -98,6 +98,31 @@ async def get_sample_by_sample_name(sample_name: str):
 
     return result
 
+@router.get("/sample_storage/{sample_id}", response_model=BiologicalSampleStorageLocation)
+async def get_sample_storage_location(sample_id: str):
+    join_query = sqlalchemy.select(
+        [
+            biological_sample_storage_locations.c.id,
+            biological_sample_storage_locations.c.location_name,
+            biological_sample_storage_locations.c.location_street_address,
+            biological_sample_storage_locations.c.location_city,
+            biological_sample_storage_locations.c.location_state,
+            biological_sample_storage_locations.c.location_zip,
+            biological_sample_storage_locations.c.location_country_code
+        ]
+    ).select_from(
+        biological_sample_data.join(
+            biological_sample_storage_locations,
+            biological_sample_data.c.storage_location_id == biological_sample_storage_locations.c.id
+        )
+    ).where(
+        biological_sample_data.c.sample_id == sample_id
+    )
+
+    result = await db.fetch_one(join_query)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Sample not found")
+    return result
 
 @router.post(
     "/bio_sample/",

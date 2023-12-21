@@ -13,6 +13,3 @@ services:
       - 3000:3000
     volumes:
       - ./frontend:/usr/src/app
-
-volumes:
-  db_volume:

@@ -2,6 +2,8 @@
 export CONTAINER_NAME=local_psql
 export VOLUME_NAME=local_psql_data
 export VOLUME_STORAGE_LOC=/var/lib/postgresql/data
+# export POSTGRES_HOST=localhost
+export POSTGRES_HOST=host.docker.internal
 export PORT_BIND=54320
 export PORT_FORWARD=5432
 export POSTGRES_TAG=14
@@ -9,7 +11,7 @@ export POSTGRES_USER=postgres
 export POSTGRES_PASS=abc123
 export DB_NAME=sample_db
 export TABLE_NAME=biological_sample_data
-export DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@host.docker.internal:${PORT_FORWARD}/${DB_NAME}
+export DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASS}@${POSTGRES_HOST}:${PORT_FORWARD}/${DB_NAME}
 
 echo "DATABASE_URL=${DATABASE_URL}">backend/.env
 
